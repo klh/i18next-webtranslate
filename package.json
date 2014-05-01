@@ -12,7 +12,7 @@
       "grunt": "*"
     , "grunt-contrib": ">=0.1.0"
     , "requirejs": "2.0.6"
-    , "express": ">= 3.0.x"
+    , "express": "*"
     , "stylus": ">= 0.24.0"
     , "nib": ">= 0.3.2"
     , "jade": ">= 0.0.1"
@@ -22,6 +22,7 @@
     , "lodash": ">= 0.5.x"
     , "zipstream": ">=0.2.1"
     , "i18next": ">=1.5.0"
+    , "body-parser":"*"
     }
   , "devDependencies": {}
   , "scripts": {}
