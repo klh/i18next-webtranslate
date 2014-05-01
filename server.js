@@ -2,24 +2,25 @@ var express = require('express')
   , app = express()
   , fs = require('fs')
   , url = require('url')
-  , i18n = require('i18next');
+  , bodyParser = require('body-parser')
+  , i18n = require('i18next')
+  , http = require('http');
 
 
 // use filesys
 i18n.init({
-    ns: { namespaces: ['ns.common', 'ns.app', 'ns.layout', 'ns.msg', 'ns.public', 'ns.special'], defaultNs: 'ns.common'},
-    preload: ['en', 'zh', 'de', 'fr', 'it', 'dev'],
-    resSetPath: 'locales/__lng__/new.__ns__.json',
+    ns: { namespaces: ['ns.common', 'ns.app', 'ns.layout', 'ns.msg', 'ns.public'], defaultNs: 'ns.common'},
+    preload: ['en', 'fr'],
+    resSetPath: 'locales/__lng__/__ns__.json',
     saveMissing: true,
+    load: 'unspecific',
     debug: true
 });
 
 // Configuration
-app.configure(function() {
-    app.use(express.bodyParser());
+    app.use(bodyParser());
     app.use(i18n.handle); // have i18n befor app.router
-    
-    app.use(app.router);
+
     // app.set('view engine', 'jade');
     // app.set('views', __dirname);
 
@@ -27,10 +28,10 @@ app.configure(function() {
     app.use('/assets', express.static('client/assets'));
     app.use('/app/templates', express.static('client/assets/templates'));
 
-    // for release 
+    // for release
     app.use('/release', express.static('client/dist/release/assets'));
     app.use('/', express.static('client/dist/release/assets'));
-});
+
 
 app.get("/", function(req, res) {
     return res.sendfile('index.html');
@@ -64,7 +65,6 @@ i18n.registerAppHelper(app)
     .serveChangeKeyRoute(app)
     .serveRemoveKeyRoute(app);
 
- var http = require('http')
-   , server = http.createServer(app);
+ var server = http.createServer(app);
 
-server.listen(3000);
+server.listen(3005);
